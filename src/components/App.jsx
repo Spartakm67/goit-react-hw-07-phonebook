@@ -1,30 +1,29 @@
-import { Container, IfEmpty, DefaultButton } from "./App.styled"; 
+// import { Container, IfEmpty, DefaultButton } from "./App.styled"; 
+import { Container, IfEmpty } from "./App.styled";
 import { ContactsForm } from "./ContactsForm/ContactsForm";
 import { ContactsFormList } from './ContactsFormList/ContactsFormList';
 import { Filter } from './Filter/Filter';
 import { useSelector } from 'react-redux';
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { getContacts } from 'redux/selectors';
-import { addInitialContacts } from '../redux/contactsSlice';
+// import { addInitialContacts } from '../redux/contactsSlice';
 import Notiflix from 'notiflix';
 
 export const App = () => {
 
 const contacts = useSelector(getContacts);
-const dispatch = useDispatch();
+// const dispatch = useDispatch();
     
-  const addDefaultContacts = () => {
+  // const addDefaultContacts = () => {
         
-    setTimeout(() => {
-      dispatch(addInitialContacts());
-    // localStorage.clear();
-    // window.location.reload()  
-
-    }, 2000);
+  //   setTimeout(() => {
+  //     dispatch(addInitialContacts());
     
-    Notiflix.Notify.failure(`Really??? :)`);
-    return;
-  };
+  //   }, 2000);
+    
+  //   Notiflix.Notify.failure(`Really??? :)`);
+  //   return;
+  // };
   
   return (
     <Container>
@@ -37,9 +36,9 @@ const dispatch = useDispatch();
         <ContactsFormList />
       ) : (
         <><IfEmpty> Phonebook is empty</IfEmpty>
-          <DefaultButton type='button' onClick={addDefaultContacts}>
+          {/* <DefaultButton type='button' onClick={addDefaultContacts}>
             Click to Add Default Contacts
-          </DefaultButton> 
+          </DefaultButton>  */}
         </>
       )}
         
