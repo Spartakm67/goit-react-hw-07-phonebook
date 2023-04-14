@@ -15,6 +15,7 @@ export const ContactsFormList = () => {
   const error = useSelector(selectError);
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
+
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
@@ -54,5 +55,5 @@ Notiflix.Notify.init({
   distance: '10px',
   opacity: 1,
   rtl: false,
-  timeout: 2000,
+  timeout: 1500,
 });

@@ -1,4 +1,3 @@
-// import { Container, IfEmpty, DefaultButton } from "./App.styled"; 
 import { Container, IfEmpty, DefaultButton } from "./App.styled";
 import { ContactsForm } from "./ContactsForm/ContactsForm";
 import { ContactsFormList } from './ContactsFormList/ContactsFormList';
@@ -6,13 +5,7 @@ import { Filter } from './Filter/Filter';
 import { useSelector } from 'react-redux';
 import { useDispatch } from "react-redux";
 import { fetchContacts } from "redux/operations";
-// import { getContacts } from 'redux/selectors';
-// import { addInitialContacts } from '../redux/contactsSlice';
-import {
-  selectContacts,
-  selectLoading,
-  selectError,
-} from 'redux/selectors';
+import { selectContacts, selectLoading,  selectError } from 'redux/selectors';
 import Notiflix from 'notiflix';
 
 export const App = () => {
@@ -24,7 +17,6 @@ const dispatch = useDispatch();
         
     setTimeout(() => {
       dispatch(fetchContacts());
-    
     }, 2000);
     
     Notiflix.Notify.failure(`Really??? :)`);
