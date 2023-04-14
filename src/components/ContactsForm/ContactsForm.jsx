@@ -1,14 +1,13 @@
 import { Formik, Field } from 'formik';
 import { Form, FormField, ErrorMessage, FormButton } from './ContactsForm.styled';
 import * as Yup from 'yup';
-// import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operations';
 import { selectContacts, selectError } from 'redux/selectors';
 import Notiflix from 'notiflix';
 
 const phoneSchema = Yup.object().shape({
-  nameContact: Yup.string()
+  name: Yup.string()
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
     .matches(
@@ -17,7 +16,7 @@ const phoneSchema = Yup.object().shape({
     )
     .required('Required, please Add Name!!!'),
 
-  number: Yup.string()
+  phone: Yup.string()
     .matches(/\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,`Phone number must be digits and can contain spaces, dashes, parentheses and can start with +`)
     .required('Required, please Add Number!!!'),
 });
@@ -26,8 +25,8 @@ const phoneSchema = Yup.object().shape({
 export const ContactsForm = () => {
 
   const initialValue = {
-  nameContact: '',
-  number: '',
+  name: '',
+  phone: '',
   };
   
 const dispatch = useDispatch();
@@ -39,11 +38,12 @@ const error = useSelector(selectError);
     console.log("Hello");
     
     const isName = contacts.some(
-      contact => contact.name.toLowerCase() === values.nameContact.toLowerCase()
+      contact => contact.name.toLowerCase() === values.name.toLowerCase()
     );
 
     if (isName) {
-      Notiflix.Notify.info(`Hey, ${values.nameContact} is already in contacts!`);
+      Notiflix.Notify.info(`Hey, "${values.name}" is already in contacts!`);
+      resetForm();
       return;
     } else {
       dispatch(addContact(values));
@@ -52,7 +52,7 @@ const error = useSelector(selectError);
   }
   
 if (error) {
-    Notiflix.Notify.failure(`${error}`);
+    Notiflix.Notify.failure(`${error} Reload the page, please.`);
   }
 
   return (
@@ -64,14 +64,14 @@ if (error) {
       <Form>
         <FormField>
           Name
-          <Field type="text" name="nameContact" />
-          <ErrorMessage name="nameContact" component="div" />
+          <Field type="text" name="name" />
+          <ErrorMessage name="name" component="div" />
         </FormField>
 
         <FormField>
           Number
-          <Field type="tel" name="number"/>
-          <ErrorMessage name="number" component="div" />
+          <Field type="tel" name="phone"/>
+          <ErrorMessage name="phone" component="div" />
         </FormField>
 
         <FormButton type="submit">Add contact</FormButton>
@@ -86,5 +86,5 @@ Notiflix.Notify.init({
   distance: '10px',
   opacity: 1,
   rtl: false,
-  timeout: 2000,
+  timeout: 1500,
 });

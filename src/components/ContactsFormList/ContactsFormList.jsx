@@ -1,20 +1,18 @@
 import { ContactsList, FeedbackButton } from './ContactsFormList.styled'
 import { useSelector, useDispatch } from 'react-redux';
-// import { getContacts, getFilter } from 'redux/selectors';
 import { fetchContacts, deleteContact } from 'redux/operations';
 import {
   selectContacts,
   selectFilter,
-  // selectLoading,
-  // selectError,
+  selectError,
 } from 'redux/selectors';
 import { useEffect } from 'react';
+import Notiflix from 'notiflix';
 
 export const ContactsFormList = () => {
 
   const dispatch = useDispatch();
-  // const error = useSelector(selectError);
-  // const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
   const filteredContacts = contacts.filter(contact =>
@@ -25,13 +23,17 @@ export const ContactsFormList = () => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
+  if (error) {
+    Notiflix.Notify.failure(`${error} Reload the page, please.`);
+  }
+
   return (
     <ul>
       {filteredContacts.map(contact => (
         <ContactsList key={contact.id}>
           <span>
             {' '}
-            {contact.name} : {contact.number}{' '}
+            {contact.name} : {contact.phone}{' '}
           </span>
           <FeedbackButton
             onClick={() => {
@@ -46,3 +48,11 @@ export const ContactsFormList = () => {
   );
 };
 
+Notiflix.Notify.init({
+  position: 'right-top',
+  width: '400px',
+  distance: '10px',
+  opacity: 1,
+  rtl: false,
+  timeout: 2000,
+});
