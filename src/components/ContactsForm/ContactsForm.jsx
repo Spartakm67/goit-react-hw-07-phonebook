@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 // import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operations';
-import { getContacts } from 'redux/selectors';
+import { selectContacts, selectError } from 'redux/selectors';
 import Notiflix from 'notiflix';
 
 const phoneSchema = Yup.object().shape({
@@ -31,8 +31,8 @@ export const ContactsForm = () => {
   };
   
 const dispatch = useDispatch();
-const contacts = useSelector(getContacts);
-  
+const contacts = useSelector(selectContacts);
+const error = useSelector(selectError);  
   
   function handleSubmit(values, { resetForm }) {
 
@@ -51,6 +51,10 @@ const contacts = useSelector(getContacts);
     }
   }
   
+if (error) {
+    Notiflix.Notify.failure(`${error}`);
+  }
+
   return (
     <Formik
       initialValues={initialValue}
