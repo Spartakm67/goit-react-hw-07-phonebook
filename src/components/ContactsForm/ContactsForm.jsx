@@ -18,7 +18,7 @@ const phoneSchema = Yup.object().shape({
 
   phone: Yup.string()
     .matches(/\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,`Phone number must be digits and can contain spaces, dashes, parentheses and can start with +`)
-    .required('Required, please Add Number!!!'),
+    .required('Required, please Add Phone Number!!!'),
 });
 
 

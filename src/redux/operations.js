@@ -36,7 +36,7 @@ export const addContact = createAsyncThunk(
         name: values.name,
         phone: values.phone,
       });
-      Notiflix.Notify.success(`"${values.name}" added to contact books`);
+      Notiflix.Notify.success(`"${values.name}" added to contacts`);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);

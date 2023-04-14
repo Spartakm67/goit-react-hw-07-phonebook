@@ -42,7 +42,7 @@ const error = useSelector(selectError);
       ) : (
         <><IfEmpty> Phonebook is empty</IfEmpty>
           <DefaultButton type='button' onClick={addDefaultContacts}>
-            Click to Add Default Contacts
+            Click to Add MockApi Contacts
           </DefaultButton>  
         </>
       )}
