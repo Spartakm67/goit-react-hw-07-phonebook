@@ -1,30 +1,18 @@
-import { Container, IfEmpty, DefaultButton } from "./App.styled";
+// import { Container, IfEmpty, DefaultButton } from "./App.styled";
+import { Container, IfEmpty } from "./App.styled";
 import { ContactsForm } from "./ContactsForm/ContactsForm";
 import { ContactsFormList } from './ContactsFormList/ContactsFormList';
 import { Filter } from './Filter/Filter';
 import { useSelector } from 'react-redux';
-import { useDispatch } from "react-redux";
-import { fetchContacts } from "redux/operations";
 import { selectContacts, selectLoading,  selectError } from 'redux/selectors';
 import Notiflix from 'notiflix';
 
 export const App = () => {
 
 const contacts = useSelector(selectContacts);
-const dispatch = useDispatch();
-    
-  const addDefaultContacts = () => {
-        
-    setTimeout(() => {
-      dispatch(fetchContacts());
-    }, 2000);
-    
-    Notiflix.Notify.failure(`Really??? :)`);
-    return;
-  };
-  
 const loading = useSelector(selectLoading);
 const error = useSelector(selectError);
+  
   if (error) {
     Notiflix.Notify.failure(`Please reload the page. ${error} `);
   }
@@ -37,16 +25,12 @@ const error = useSelector(selectError);
       <h2>Contacts</h2>
       {loading && <div>Loading contacts...</div>}
       <Filter />
+      <ContactsFormList />
       {contacts.length > 0 ? (
-        <ContactsFormList />
+       <IfEmpty> All Contacts have been succesfully uploaded</IfEmpty>
       ) : (
-        <><IfEmpty> Phonebook is empty</IfEmpty>
-          <DefaultButton type='button' onClick={addDefaultContacts}>
-            Click to Add MockApi Contacts
-          </DefaultButton>  
-        </>
-      )}
-        
+        <IfEmpty> Phonebook is empty</IfEmpty>      
+      )}       
     </Container>);
 };
 
